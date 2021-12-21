@@ -1,5 +1,8 @@
 package com.example.bigtalkscript.Util;
 
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef;
+
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.image.BufferedImage;
@@ -149,6 +152,35 @@ public class GrabTool {
             robot.delay(mousePressTime);
             robot.mouseRelease(InputEvent.BUTTON1_MASK);
         }
+
+    }
+
+    /**
+     * 本方法会根据指定的游戏标题和游戏文件路径,开启游戏窗口并且移动到指定的位置.
+     *
+     * @param gameTitle  - 指定的游戏标题
+     * @param gamePath   - 指定的游戏文件路径
+     * @param gameX      - 指定的游戏的X轴位置
+     * @param gameY      - 指定的游戏的Y轴位置
+     * @param gameWidth  - 指定的游戏的窗口宽度
+     * @param gameHeight - 指定的游戏的窗口高度
+     *
+     * @throws Exception- 如果指定的游戏路径错误 或者 发生 I/O 错误 则抛出异常
+     */
+    public static void moveGameWindow(String gameTitle, String gamePath, int gameX, int gameY, int gameWidth, int gameHeight) throws Exception {
+        // 获取指定顶级窗口的句柄
+        WinDef.HWND hwnd = User32.INSTANCE.FindWindow(null, gameTitle);
+        if (hwnd == null) {
+            // 如果没有找到游戏窗口就启动游戏窗口
+            Runtime.getRuntime().exec("cmd /c " + gamePath);
+            return;
+        }
+        // 设置指定窗口的显示状态
+        User32.INSTANCE.ShowWindow(hwnd, 1);
+        // 激活指定窗口
+        User32.INSTANCE.SetForegroundWindow(hwnd);
+        // 获取指定窗口的位置
+        User32.INSTANCE.MoveWindow(hwnd, gameX, gameY, gameWidth, gameHeight, true);
 
     }
 

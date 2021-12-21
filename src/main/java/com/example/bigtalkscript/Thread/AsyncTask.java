@@ -1,4 +1,4 @@
-package com.example.bigtalkscript.Modules;
+package com.example.bigtalkscript.Thread;
 import com.example.bigtalkscript.Util.GrabTool;
 import com.example.bigtalkscript.Util.Logger;
 import org.springframework.scheduling.annotation.Async;
@@ -27,8 +27,6 @@ public class AsyncTask {
     public static void main(String[] args) throws Exception {
         int[] ints = GrabTool.setPoint();
         System.out.println(Arrays.toString(ints));
-        System.out.println(Arrays.toString(ints));
-        //int[] ints = new int[]{1368, 2, 204, 204, 204};
         GrabTool.MouseResponse(ints);
     }
 

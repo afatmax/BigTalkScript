@@ -1,9 +1,6 @@
 package com.example.bigtalkscript;
 
-import com.alibaba.fastjson.JSONObject;
-import com.example.bigtalkscript.Modules.AsyncTask;
-import com.example.bigtalkscript.Util.FileUtil;
-import com.example.bigtalkscript.Util.JsonUtils;
+import com.example.bigtalkscript.Thread.AsyncTask;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
