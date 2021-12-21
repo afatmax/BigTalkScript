@@ -27,6 +27,7 @@ public class AsyncTask {
     public static void main(String[] args) throws Exception {
         int[] ints = GrabTool.setPoint();
         System.out.println(Arrays.toString(ints));
+        
         GrabTool.MouseResponse(ints);
     }
 
