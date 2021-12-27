@@ -14,6 +14,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author jim
+ */
 public class XmlUtil {
 
 
@@ -26,7 +29,6 @@ public class XmlUtil {
     public static void reviseGame(File file, Game game) {
 
         try {
-
             InputStream in = new FileInputStream(file);
             SAXReader reader = new SAXReader();
             Document doc = reader.read(in);

@@ -1,4 +1,5 @@
 package com.example.bigtalkscript.Thread;
+import com.example.bigtalkscript.Modules.Game;
 import com.example.bigtalkscript.Util.GrabTool;
 import com.example.bigtalkscript.Util.Logger;
 import org.springframework.scheduling.annotation.Async;
@@ -30,12 +31,13 @@ public class AsyncTask {
     }
 
     public static void main(String[] args) throws Exception {
-//        int[] ints = GrabTool.setPoint();
-//        System.out.println(Arrays.toString(ints));
-//
-//        GrabTool.MouseResponse(ints);
-
-
+        ArrayList<Game> games = GrabTool.fileToArrayList("/Users/jim/workfile/IdeaProjects/BigTalkScript/pointMessage.txt");
+        for (int i = 0; i < games.size(); i++) {
+            int[] ints = new int[]{games.get(i).getX(),games.get(i).getY(),games.get(i).getRed(),games.get(i).getGreen(),games.get(i).getBlue()};
+            System.out.println(Arrays.toString(ints));
+            GrabTool.MouseResponse(ints);
+        }
+       // int[] ints = GrabTool.setPoint();
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.bigtalkscript.Util;
 
+import com.example.bigtalkscript.Modules.Game;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
 
@@ -77,31 +78,29 @@ public class GrabTool {
      * @return - 返回的文件信息列表
      * @throws Exception - 如果发生 I/O 错误则抛出异常
      */
-    public static ArrayList<int[]> fileToArrayList(String FileURL) throws Exception {
+    public static ArrayList<Game> fileToArrayList(String FileURL) throws Exception {
 
         String string = null;
-        int[] Point = null;
-        ArrayList<int[]> PointList = new ArrayList<int[]>();
+        ArrayList<Game> PointList = new ArrayList<Game>();
         //本人采用正则表达式提取数据,
-        Pattern p = Pattern.compile("\\{([^,]+),([^,]+),([^,]+),([^,]+),([^\\}]+)\\}");
-        BufferedReader File = new BufferedReader(new InputStreamReader(new FileInputStream(FileURL)));
+        Pattern patten = Pattern.compile("\\{([^,]+),([^,]+),([^,]+),([^,]+),([^\\}]+)\\}");
+        BufferedReader file = new BufferedReader(new InputStreamReader(new FileInputStream(FileURL)));
 
-        while ((string = File.readLine()) != null) {
+        while ((string = file.readLine()) != null) {
             //虽然有其他存数据办法，比如数据库，但是不可能让用户专门下载个数据库，这是一个正常的逻辑
-            Matcher rule = p.matcher(string);
+            Matcher rule = patten.matcher(string);
 
             while (rule.find()) {
-                // 将每行的数据提取并且赋值,最后添加进容器中
-                int X = Integer.parseInt(rule.group(1));
-                int Y = Integer.parseInt(rule.group(2));
-                int R = Integer.parseInt(rule.group(3));
-                int G = Integer.parseInt(rule.group(4));
-                int B = Integer.parseInt(rule.group(5));
-                Point = new int[] { X, Y, R, G, B };
-                PointList.add(Point);
+                Game game = new Game();
+                game.setX(Integer.parseInt(rule.group(1)));
+                game.setY(Integer.parseInt(rule.group(2)));
+                game.setRed(Integer.parseInt(rule.group(3)));
+                game.setGreen(Integer.parseInt(rule.group(4)));
+                game.setBlue(Integer.parseInt(rule.group(5)));
+                PointList.add(game);
             }
         }
-        File.close();
+        file.close();
         return PointList;
     }
 
@@ -136,7 +135,7 @@ public class GrabTool {
         int mouseG = myColor.getGreen();
         int mouseB = myColor.getBlue();
         // 如果真实点与判断点颜色一致,则执行以下操作
-        if (Math.abs(mouseR - decisionR) < 5 && Math.abs(mouseG - decisionG) < 5 && Math.abs(mouseB - decisionB) < 5) {
+       // if (Math.abs(mouseR - decisionR) < 5 && Math.abs(mouseG - decisionG) < 5 && Math.abs(mouseB - decisionB) < 5) {
             // 计算鼠标位置并且移动到该位置
             int mouseMoveX = (int) (Math.random() * 35 - 15) + decisionX;
             int mouseMoveY = (int) (Math.random() * 35 - 15) + decisionY;
@@ -151,7 +150,7 @@ public class GrabTool {
             robot.mousePress(InputEvent.BUTTON1_MASK);
             robot.delay(mousePressTime);
             robot.mouseRelease(InputEvent.BUTTON1_MASK);
-        }
+       // }
 
     }
 
