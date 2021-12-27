@@ -60,6 +60,9 @@ public class XmlUtil {
                 element.addElement("y").addText(String.valueOf(game.getY()));
                 element.addElement("width").addText(String.valueOf(game.getWidth()));
                 element.addElement("height").addText(String.valueOf(game.getHeight()));
+                element.addElement("red").addText(String.valueOf(game.getRed()));
+                element.addElement("green").addText(String.valueOf(game.getGreen()));
+                element.addElement("blue").addText(String.valueOf(game.getBlue()));
             }
 
             // 写入文件

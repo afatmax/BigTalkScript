@@ -21,14 +21,22 @@ public class AsyncTask {
 
     @Async("taskExecutor")
     public void stringTask(String str){
+
+
+
+
+
         System.out.println(Thread.currentThread().getName()+str);
     }
 
     public static void main(String[] args) throws Exception {
-        int[] ints = GrabTool.setPoint();
-        System.out.println(Arrays.toString(ints));
+//        int[] ints = GrabTool.setPoint();
+//        System.out.println(Arrays.toString(ints));
+//
+//        GrabTool.MouseResponse(ints);
 
-        GrabTool.MouseResponse(ints);
+
+
     }
 
 }
