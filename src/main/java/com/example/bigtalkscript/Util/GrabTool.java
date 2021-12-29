@@ -107,16 +107,16 @@ public class GrabTool {
     /**
      * 本方法会根据设定的判断点与真实点进行对比,如果颜色一致则移动鼠标到该点进行单击操作
      *
-     * @param Point - 判断点的相关信息
+     * @param point - 判断点的相关信息
      * @throws Exception - 如果平台配置不允许使用Robot类则抛出异常
      */
-    public static void MouseResponse(int[] Point)  {
+    public static void MouseResponse(int[] point)  {
         // 获取判断点的信息
-        int decisionX = Point[0];
-        int decisionY = Point[1];
-        int decisionR = Point[2];
-        int decisionG = Point[3];
-        int decisionB = Point[4];
+        int decisionX = point[0];
+        int decisionY = point[1];
+        int decisionR = point[2];
+        int decisionG = point[3];
+        int decisionB = point[4];
         // 获取真实点的颜色
         Robot robot = null;
         try {
@@ -124,25 +124,28 @@ public class GrabTool {
         } catch (AWTException e) {
             e.printStackTrace();
         }
-//        Color decisionRGB = robot.getPixelColor(decisionX, decisionY);
-//        int mouseR = decisionRGB.getRed();
-//        int mouseG = decisionRGB.getGreen();
-//        int mouseB = decisionRGB.getBlue();
+
+        // 如果真实点与判断点颜色一致,则执行以下操作
+
+        // 计算鼠标位置并且移动到该位置
+        //int mouseMoveX = (int) (Math.random() * 35 - 15) + decisionX;
+        //int mouseMoveY = (int) (Math.random() * 35 - 15) + decisionY;
+        // 修复JDK8的移动不正确的BUG
+        for (int i = 0; i < 6; i++) {
+            robot.mouseMove(decisionX, decisionY);
+        }
+        robot.delay(3000);
         BufferedImage bufferedImage = robot.createScreenCapture(new Rectangle(0, 0, 2560, 1600));
         int rgb = bufferedImage.getRGB(decisionX, decisionY);
         Color myColor = new Color(rgb);
         int mouseR = myColor.getRed();
         int mouseG = myColor.getGreen();
         int mouseB = myColor.getBlue();
-        // 如果真实点与判断点颜色一致,则执行以下操作
-       // if (Math.abs(mouseR - decisionR) < 5 && Math.abs(mouseG - decisionG) < 5 && Math.abs(mouseB - decisionB) < 5) {
-            // 计算鼠标位置并且移动到该位置
-            int mouseMoveX = (int) (Math.random() * 35 - 15) + decisionX;
-            int mouseMoveY = (int) (Math.random() * 35 - 15) + decisionY;
-            // 修复JDK8的移动不正确的BUG
-            for (int i = 0; i < 6; i++) {
-                robot.mouseMove(mouseMoveX, mouseMoveY);
-            }
+//        Color decisionRGB = robot.getPixelColor(decisionX, decisionY);
+//        int mouseR = decisionRGB.getRed();
+//        int mouseG = decisionRGB.getGreen();
+//        int mouseB = decisionRGB.getBlue();
+        if (Math.abs(mouseR - decisionR) < 5 && Math.abs(mouseG - decisionG) < 5 && Math.abs(mouseB - decisionB) < 5) {
             // 模拟计算鼠标按下的间隔并且按下鼠标
             int moveTime = (int) (Math.random() * 500 + 200);
             int mousePressTime = (int) (Math.random() * 500 + 200);
@@ -150,7 +153,10 @@ public class GrabTool {
             robot.mousePress(InputEvent.BUTTON1_MASK);
             robot.delay(mousePressTime);
             robot.mouseRelease(InputEvent.BUTTON1_MASK);
-       // }
+            Logger.i("mousePress:::true==="+decisionR+"::::::"+decisionG+"::::::"+decisionB);
+        }else{
+            Logger.i("mousePress:::false=="+mouseR+"::::::"+mouseG+"::::::"+mouseB);
+        }
 
     }
 

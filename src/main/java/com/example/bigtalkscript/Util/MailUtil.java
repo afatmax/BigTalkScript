@@ -28,7 +28,7 @@ public class MailUtil {
      * @throws Exception - 如果网络故障或者因授权码输入错误导致身份验证失败则抛出异常
      *
      */
-    public static void sendMessages(String senderAccount, String authorizationCode, String recipientAccount, String MailTheme, String MailContent) throws Exception {
+    public static void sendMessages(String senderAccount, String authorizationCode, String recipientAccount, String MailTheme, String MailContent,String filePath) throws Exception {
 
         // 创建Properties类存储邮箱属性
         Properties props = new Properties();
@@ -72,9 +72,9 @@ public class MailUtil {
         // 调整图片大小(参数可自调)
         img = setImgSize(img, 500, 300);
         // 保存图片到桌面(你可以保存到其他位置)--------------
-        ImageIO.write(img, "png", new File("C:\\用户\\User\\桌面\\图片.png"));
+        ImageIO.write(img, "png", new File(filePath));
         // 读取本地文件
-        DataHandler dataHandler = new DataHandler(new FileDataSource("C:\\用户\\User\\桌面\\图片.png"));
+        DataHandler dataHandler = new DataHandler(new FileDataSource(filePath));
         // 将图片添加到"节点"
         image.setDataHandler(dataHandler);
         // 为"节点"设置一个唯一编号
@@ -104,7 +104,7 @@ public class MailUtil {
         // 发送邮件
         Transport.send(message);
         // 删除图片
-        new File("C:\\用户\\User\\桌面\\图片.png").delete();
+        new File(filePath).delete();
 
     }
 
