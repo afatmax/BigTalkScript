@@ -177,7 +177,8 @@ public class GrabTool {
         WinDef.HWND hwnd = User32.INSTANCE.FindWindow(null, gameTitle);
         if (hwnd == null) {
             // 如果没有找到游戏窗口就启动游戏窗口
-            Runtime.getRuntime().exec("cmd /c " + gamePath);
+            Process exec = Runtime.getRuntime().exec("cmd /" + gamePath);
+
             return;
         }
         // 设置指定窗口的显示状态
